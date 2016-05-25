@@ -1,0 +1,59 @@
+<div class="container" layout-padding="">
+	<form name="snippetForm">
+		<div layout="row">
+	    	<md-input-container flex="" flex-gt-md="30" class="md-block" >
+	      		<label>Name</label>
+	      		<input ng-model="snippet.name">
+	   		 </md-input-container>
+	  	</div>
+	  	<div layout="row">
+	  		<md-chips flex="" flex-gt-md="30" ng-model="snippet.tags" placeholder="Enter a tag" secondary-placeholder="+Tag"></md-chips>
+	  	</div>
+	  	<div layout="row">
+	    	<md-input-container flex="" flex-gt-md="30" class="md-block" >
+	      		<label>Owner</label>
+	      		<input ng-model="snippet.owner">
+	    	</md-input-container>
+	  	</div>
+	  	<div layout="row">
+	    	<md-input-container flex="" flex-gt-md="30" class="md-block" >
+	      		<label>Created</label>
+	      		<input ng-model="snippet.created" disabled>
+	    	</md-input-container>	    	
+	  	</div>
+	  	<div layout="row">
+			<md-autocomplete
+				flex=""
+				flex-gt-md="30"
+				md-input-name="language"
+			    md-selected-item="snippet.language"
+			    md-selected-item-change="setEditorLanguage(language)"
+			    md-search-text="searchText"
+			    md-items="language in editor.modelist.modeStrings | filter : searchText"
+			    md-item-text="language"
+			    md-min-length="0"
+			    md-select-on-match="true"
+			    md-floating-label="Language"
+			    placeholder="Select Syntax-Highlighter"
+			>
+			    <md-item-template>
+			       	<span md-highlight-text="searchText" md-highlight-flags="^i">{{language}}</span>
+			    </md-item-template>
+			</md-autocomplete>
+		</div>
+
+		<div layout="row">
+			<md-input-container flex=""	flex-gt-md="30" class="md-block" >
+        		<label>Comment</label>
+        		<textarea ng-model="snippet.comment" columns="1" rows="5"></textarea>
+      		</md-input-container>
+      	</div>
+
+		<div ui-ace="{
+			onLoad : aceLoaded, 
+			onChange : editorContentChanged,
+			mode: aceMode
+		}" ng-model="snippet.code" class="md-whiteframe-z1" flex="" flex-gt-md="30"></div>
+        
+	</form>
+</div>

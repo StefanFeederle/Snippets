@@ -1,0 +1,15 @@
+<div class="container">
+	<md-list >
+		<md-subheader>{{(snippets | filter: search.text).length }} Snippets gefunden</md-subheader><!--You can use md-no-sticky class-->
+		<md-list-item class="md-3-line" ng-repeat="snippet in snippets | splicekeyword: search.text"  ng-click="selectSnippet(snippet)">
+			<div ng-style="MaterialColorfromString(snippet.language)" class="md-avatar md-subhead">{{snippet.language | limitTo:3 | uppercase}}</div>
+			<div class="md-list-item-text" layout="column">
+				<h3>{{snippet.name}}<span></span></h3>
+				<md-chips class="frontpage-chips" flex="" flex-gt-md="30" ng-model="snippet.tags" readonly="true"></md-chips> 
+				<p ng-if="false">{{snippet.created | date:'dd.MM.yyyy'}}</p>
+			</div>
+			<md-icon class="material-icons md-24 md-clickable md-secondary" aria-label="share snippet" ng-click="shareSnippet(snippet, $event)"> share </md-icon>
+			<md-icon class="material-icons md-24 md-clickable md-secondary" aria-label="delete snippet" ng-click="deleteSnippet(snippet, $event)"> clear </md-icon>
+		</md-list-item>
+	</md-list>
+</div>

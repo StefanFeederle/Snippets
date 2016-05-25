@@ -1,0 +1,56 @@
+<md-toolbar class="md-whiteframe-3dp">
+    <div class="md-toolbar-tools">
+        <md-button ng-show="!search.Active" class="md-icon-button" aria-label="Search" ng-click="search.Active = !search.Active" disableAnimate="">
+            <md-icon style="color: white" class="material-icons md-24">search</md-icon>
+        </md-button>
+
+        <md-button ng-show="search.Active" class="md-icon-button" aria-label="Search" ng-click="clearSearch()" disableAnimate="">
+            <md-icon style="color: white" class="material-icons md-24">arrow_back</md-icon>
+        </md-button>
+        <span flex ng-show="!search.Active" disableAnimate="">Snippets</span>
+        <md-input-container ng-show="search.Active" flex>
+            <label>&nbsp;</label>
+            <input id="search" show-focus="search.Active" ng-model="search.text" placeholder="enter search">
+        </md-input-container>
+        <md-menu md-position-mode="target-right target">
+            <md-button class="md-icon-button" aria-label="Menu" ng-click="openMenu($mdOpenMenu, $event)">
+                <md-icon md-menu-origin="" style="color: white" class="material-icons md-24">menu</md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        <md-switch class="md-primary" ng-model="options.autosave" aria-label="Switch 1">
+                            Autosave
+                        </md-switch>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+                        <md-icon md-svg-icon="call:voicemail"></md-icon>
+                        Check voicemail
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.toggleNotifications()">
+                        <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+                        {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <md-tabs >
+        <md-tab ui-sref="home.list" md-active="$state.is('home.list')">SNIPPETS</md-tab> 
+        <md-tab ui-sref="home.snippet" md-active="$state.is('home.snippet')">SNIPPET</md-tab>
+    </md-tabs> 
+    <md-button ng-if="$state.is('home.list')" class="md-accent md-fab md-fab-top-right" ng-click="addSnippet()">
+        <md-icon style="color: white" class="material-icons md-24"> add </md-icon>
+    </md-button> 
+    <md-button ng-if="$state.is('home.snippet')" class="md-accent md-fab md-fab-top-right" ng-click="$parent.$broadcast('saveSnippet')">
+        <md-icon style="color: white" class="material-icons md-24"> done </md-icon>
+    </md-button> 
+</md-toolbar> 
+<div class="view-container">
+    <div ui-view class="fade-in"></div> 
+</div>

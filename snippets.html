@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Snippets</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" href="app.css">
+        <style type="text/css">
+            /**
+             * Hide when Angular is not yet loaded and initialized
+             */
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+              display: none !important;
+        }
+    </style>
+    </head>
+    <body ng-cloak="" ng-app="snippets" style="min-width: 360px"layout="column">  
+        <div ui-view></div>  
+        <md-content ng-if="false">
+            <md-subheader>
+                $state = {{$state.current.name}}
+            </md-subheader>
+            <md-subheader>
+                $stateParams = {{$stateParams}}
+            </md-subheader>
+            <md-subheader>
+                $state full url = {{ $state.$current.url.source }}    
+            </md-subheader>
+        </md-content>
+
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="bower_components/ui-router-extras/release/ct-ui-router-extras.min.js"></script>
+        <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+        <script src="bower_components/angular-material/angular-material.js"></script>
+
+        <script src="bower_components/angular-datetime/dist/datetime.js"></script>
+        <script type="text/javascript" src="bower_components/ace-builds/src-noconflict/ace.js"></script>
+        <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ext-modelist.js"></script>
+        <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+        
+        <script src="bower_components/angular-aria/angular-aria.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        
+        <script type="text/javascript" src="app/app.js"></script>
+        <script type="text/javascript" src="app/theme.js"></script>
+        <script type="text/javascript" src="app/filters.js"></script>
+        <script type="text/javascript" src="app/controllers/header.js"></script>
+        <script type="text/javascript" src="app/controllers/list.js"></script>
+        <script type="text/javascript" src="app/controllers/snippet.js"></script>
+        <script type="text/javascript" src="app/services/snippetsService.js"></script>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </body>
+</html>

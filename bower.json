@@ -1,0 +1,29 @@
+{
+  "name": "snippets",
+  "version": "0.1.0",
+  "authors": [
+    "StefanFeederle <stefan.feederle@gmail.com>"
+  ],
+  "main": "snippets.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "master",
+    "angular-ui-ace": "bower",
+    "angular-ui-router": "~0.2.15",
+    "angular-datetime": "~2.0.0",
+    "ngstorage": "~0.3.10",
+    "angular": "1.4.8",
+    "ui-router-extras": "^0.1.2"
+  },
+  "resolutions": {
+    "angular-material": "master",
+    "angular": "1.5.5"
+  }
+}

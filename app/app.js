@@ -52,11 +52,3 @@ snippets.run( ['$rootScope', '$state', '$stateParams',
         $rootScope.$stateParams = $stateParams; 
     }
 ]);
-angular.module('snippets').
-  filter('multiple', function() {
-    return function(movies,genres) {
-      var out = [];
-      // Filter logic here, adding matches to the out var.
-      return out;
-    }
-});

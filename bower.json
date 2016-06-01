@@ -19,8 +19,7 @@
     "angular-ui-router": "~0.2.15",
     "angular-datetime": "~2.0.0",
     "ngstorage": "~0.3.10",
-    "angular": "1.4.8",
-    "ui-router-extras": "^0.1.2"
+    "angular": "1.4.8"
   },
   "resolutions": {
     "angular-material": "master",

@@ -17,18 +17,27 @@ snippets.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
 
     // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
 
-    $stateProvider.state('home',{
+    $stateProvider
+    .state('home',{
         abstract: true,
         templateUrl: 'app/views/header.html',
         controller: 'headerController'
     })
-
-    .state('home.list',{
-        url: '/',
-        templateUrl: 'app/views/list.html',
-        controller: 'listController'
+    .state('search',{
+        abstract: true,
+        templateUrl: 'app/views/header.search.html',
+        controller: 'headerController'
     })
-
+    .state('home.list',{
+        url: '/list',
+        templateUrl: 'app/views/list.html',
+        controller: 'listController' 
+    })
+    .state('search.list',{
+        url: '/search',
+        templateUrl: 'app/views/list.html',
+        controller: 'listController' 
+    })
     .state('home.snippet',{
         url: '/snippet/:id',
         templateUrl: 'app/views/snippet.html',

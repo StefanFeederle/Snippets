@@ -1,10 +1,9 @@
 <md-toolbar class="md-whiteframe-3dp">
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Search" ui-sref='search.list' disableAnimate="">
-            <md-icon style="color: white" class="material-icons md-24">search</md-icon>
+    <md-button class="md-icon-button" aria-label="Search" ui-sref='home.list' disableAnimate="">
+            <md-icon style="color: white" class="material-icons md-24">arrow_back</md-icon>
         </md-button>
-        <span flex ng-show="!search.Active" disableAnimate="">Snippets</span>
-        <md-input-container ng-show="search.Active" flex>
+        <md-input-container flex>
             <label>&nbsp;</label>
             <input id="search" show-focus="search.Active" ng-model="search.text" placeholder="enter search">
         </md-input-container>

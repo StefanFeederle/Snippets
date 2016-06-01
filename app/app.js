@@ -29,7 +29,7 @@ snippets.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
         controller: 'headerController'
     })
     .state('home.list',{
-        url: '/list',
+        url: '/',
         templateUrl: 'app/views/list.html',
         controller: 'listController' 
     })

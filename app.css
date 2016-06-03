@@ -178,3 +178,6 @@ md-chips.frontpage-chips md-chip {
     padding: 0 12px 0 12px;
     font-size: 12px;
 }
+input.header-search {
+    background-color: transparent;
+}

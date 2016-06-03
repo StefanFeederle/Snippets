@@ -2,7 +2,7 @@
 	<md-list >
 		<md-subheader>{{(snippets | filter: search.text).length }} Snippets gefunden</md-subheader><!--You can use md-no-sticky class-->
 		<md-list-item class="md-3-line" ng-repeat="snippet in snippets | splicekeyword: search.text"  ng-click="selectSnippet(snippet)">
-			<div ng-style="MaterialColorfromString(snippet.language)" class="md-avatar md-subhead">{{snippet.language | limitTo:3 | uppercase}}</div>
+			<div pickmaterialcolor="{{snippet.language}}" class="md-avatar md-subhead">{{snippet.language | limitTo:3 | uppercase}}</div>
 			<div class="md-list-item-text" layout="column">
 				<h3>{{snippet.name}}<span></span></h3>
 				<md-chips class="frontpage-chips" flex="" flex-gt-md="30" ng-model="snippet.tags" readonly="true"></md-chips> 

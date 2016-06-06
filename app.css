@@ -49,47 +49,16 @@ md-list-item  .md-avatar {
 
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 
-
-
 .md-button.md-fab.md-fab-top-right {
-    top: 75px;
+    top: 32px;
 }
 .md-toolbar-tools {
     min-height: 64px;
 }
-md-toolbar {
-  min-height: 112px;
-}
-
-@media only screen and (min-width: 0) and (max-width: 600px) and (orientation: portrait) {
-  .md-button.md-fab.md-fab-top-right {
-    top: 69px; 
-  }
-  .md-toolbar-tools {
-    min-height: 56px;
-  }
-  md-toolbar {
-    min-height: 104px;
-  }
- }
-
-@media only screen and (min-width: 0) and (max-width: 600px) and (orientation: landscape) {
-  .md-button.md-fab.md-fab-top-right {
-    top: 61px; 
-  }
-  .md-toolbar-tools {
-    min-height: 48px;
-  }
-  md-toolbar {
-    min-height: 96px;
-  }
- }
 
  #search {
   border: none;
  }
-
-
 
 .view-container {
   height:500px;

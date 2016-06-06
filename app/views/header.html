@@ -3,11 +3,7 @@
         <md-button class="md-icon-button" aria-label="Search" ui-sref='search.list' disableAnimate="">
             <md-icon style="color: white" class="material-icons md-24">search</md-icon>
         </md-button>
-        <span flex ng-show="!search.Active" disableAnimate="">Snippets</span>
-        <md-input-container ng-show="search.Active" flex>
-            <label>&nbsp;</label>
-            <input id="search" show-focus="search.Active" ng-model="search.text" placeholder="enter search">
-        </md-input-container>
+        <span flex disableAnimate="">Snippets</span>
         <md-menu md-position-mode="target-right target">
             <md-button class="md-icon-button" aria-label="Menu" ng-click="openMenu($mdOpenMenu, $event)">
                 <md-icon md-menu-origin="" style="color: white" class="material-icons md-24">menu</md-icon>

@@ -8,11 +8,6 @@ snippets.controller('headerController', function($scope, snippetsService, $state
     });
     console.log("headerController called");
 
-    $scope.clearSearch = function(){
-        $scope.search.text = "";
-        $scope.search.Active = !$scope.search.Active;
-    }
-
     $scope.addSnippet = function(){
         snippetsService.newSnippet()
         .success(function (response) {
@@ -22,7 +17,6 @@ snippets.controller('headerController', function($scope, snippetsService, $state
             //$scope.status = 'Unable to load customer data: ' + error.message;
         });
     };
-
 
     $scope.openMenu = function($mdOpenMenu, ev) {
         originatorEv = ev;

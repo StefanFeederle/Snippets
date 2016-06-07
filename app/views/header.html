@@ -1,8 +1,11 @@
 <md-toolbar class="md-whiteframe-3dp">
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Search" ui-sref='search.list' disableAnimate="">
+        <md-button ng-show="!$state.is('home.snippet')" class="md-icon-button" aria-label="Search" ui-sref='search.list'>
             <md-icon style="color: white" class="material-icons md-24">search</md-icon>
         </md-button>
+        <md-button ng-show="!$state.is('home.list')" class="md-icon-button" aria-label="Search" ui-sref='home.list'>
+            <md-icon style="color: white" class="material-icons md-24">arrow_back</md-icon>
+        </md-button>       
         <span flex disableAnimate="">Snippets</span>
         <md-menu md-position-mode="target-right target">
             <md-button class="md-icon-button" aria-label="Menu" ng-click="openMenu($mdOpenMenu, $event)">

@@ -150,3 +150,8 @@ md-chips.frontpage-chips md-chip {
 input.header-search {
     background-color: transparent;
 }
+
+.md-toolbar-tools > .md-button {
+    margin-left: -8px;
+    transition: 0s none;
+}

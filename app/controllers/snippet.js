@@ -5,9 +5,6 @@ snippets.controller("snippetController", function($scope, snippetsService, $stat
     $scope.snippet = {
         dataReady : false
     };
-    $scope.savedSnippet = {};
-    $scope.unsavedChanges = false;
-    $scope.saveInProgress = false;
 
     if($state.params.id){                               //snippetid from url paramter
         getSnippet($state.params.id);
@@ -26,144 +23,10 @@ snippets.controller("snippetController", function($scope, snippetsService, $stat
             });
     }
 
-    function watchSnippet(){
-        //attach object lisener
-        $scope.$watch("snippet", function(newValue, oldValue) {
-            if (newValue !== oldValue && $scope.snippet.dataReady) {
-                $scope.unsavedChanges = true;
-            }
-        }, true);
-    }
-
-    $scope.$on("saveSnippet", function (event, args) {
-        $scope.saveSnippet();
-    });
-    //window.addEventListener("beforeunload", function (e) {
-    //        var confirmationMessage = 'It looks like you have been editing something. If you leave before saving, your changes will be lost.';
-    //        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-    //        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-    //});
-
-    //$scope.$on('$stateChangeStart', function (event){
-    //    var answer = confirm("Es sind ungespeicherte Änderungen vorhanden, trotzdem verlassen?");
-    //    if (!answer){
-    //        event.preventDefault()
-    //    }else{  
-    //        return;
-    //    }
-    //});
- 
-    window.onbeforeunload = function(){
-        console.log("onbeforeunload fired");
-        if($scope.unsavedChanges){
-            return "Es sind ungespeicherte Änderungen vorhanden, trotzdem verlassen?";
-        } else{ 
-            return;
-        }
-    }
-
-    //$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    //    console.log(event);
-    //   //var answer = confirm("Are you sure you want to leave this page?");
-    //   //if (!answer) {
-    //       event.preventDefault();
-    //   //}
-    //    var dialog = $mdDialog.confirm()
-    //      .title('Delete Snippet?')
-    //      .textContent('All of the banks have agreed to forgive you your debts.')
-    //      .ariaLabel('Lucky day')
-    //      .targetEvent(event)
-    //      .ok('Delete!')
-    //      .cancel('Cancel');
-    //    
-    //    $mdDialog.show(dialog).then(
-    //        function() {
-    //            //dialog confirmed
-    //            //snippetsService.deleteSnippet(snippet.id)
-    //            //.then(function(){
-    //            //    console.log("reloading state");
-    //            //    $state.go($state.current, {}, {reload: true});
-    //            //});
-    //        },
-    //        function() {
-    //            //dialog canceled                
-    //        }
-    //    );
-    //});
-
-    //savetrigger
-    var intervalpointer = null;
-
-    function startSaveInterval(time){
-        if(!intervalpointer){
-            console.log("starting timer");
-            intervalpointer = $interval(saveInterval, time);
-        }
-    }
-
-    function stopSaveInterval(){
-        console.log("stopping timer");
-        $interval.cancel(intervalpointer);
-        intervalpointer = null;
-    }
-
-    $scope.$on('$destroy', function() {
-        // Make sure that the interval is destroyed too
-        stopSaveInterval();
-    });
-
-    function saveInterval() {
-        //console.log($scope.unsavedChanges);
-        //console.log($scope.saveInProgress);
-        if($scope.unsavedChanges && !$scope.saveInProgress){
-            $scope.saveSnippet();
-        }
-    }
-
-    $scope.$watch("options.autosave", function(newValue, oldValue) {
-        //console.log("autosave changed, is now "+newValue);
-        if(newValue){ 
-            startSaveInterval(1500);
-        } else {
-            stopSaveInterval();
-        }  
-    }, true);
-
-    $scope.saveSnippet = function (){
-        var snippetToSave = angular.copy($scope.snippet);
-        //snippet changed since last save?
-        if(!angular.equals(snippetToSave, $scope.savedSnippet)){
-            if(!$scope.saveInProgress){
-                $scope.saveInProgress = true;
-                $scope.unsavedChanges = false;
-                snippetsService.saveSnippet(snippetToSave)
-                .then(function (response) {
-                    //update the last saved snippet, ergo the database-state
-                    $scope.savedSnippet = angular.copy(snippetToSave);
-                    $scope.saveInProgress = false;
-                });
-            } else {
-
-            }
-        } else {
-            console.log("no new data to save");
-        }
-    }
-
-    $scope.highlightEditor = function(lineStart, lineEnd){
-        //if (!$scope.editorReady || !lineStart) return;
-
-        //if(lineEnd){
-            //single line
-            var markerId = $scope.editor._session.addMarker(new $scope.editor.Range(1, 0, 2, 999), "ace_highlight-marker", "fullLine");
-        //} else {
-            //multiple line
-            //var markerId = $scope._session.addMarker(new Range(lineStart, 0, lineEnd, 0), "ace_highlight-marker", "fullLine");
-        //}
+	/* ===========================================================  */
+	/* Ace Editor                                                   
+	/* ===========================================================  */
         
-        //remove highlight
-        //$scope._session.removeMarker(markerId);
-    }
     $scope.aceLoaded = function(_editor) {
         $scope.editor = {
             _editor : _editor,
@@ -239,5 +102,156 @@ snippets.controller("snippetController", function($scope, snippetsService, $stat
             return false;
         } 
     };
+    
+    $scope.highlightEditor = function(lineStart, lineEnd){
+        //if (!$scope.editorReady || !lineStart) return;
 
+        //if(lineEnd){
+            //single line
+            var markerId = $scope.editor._session.addMarker(new $scope.editor.Range(1, 0, 2, 999), "ace_highlight-marker", "fullLine");
+        //} else {
+            //multiple line
+            //var markerId = $scope._session.addMarker(new Range(lineStart, 0, lineEnd, 0), "ace_highlight-marker", "fullLine");
+        //}
+        
+        //remove highlight
+        //$scope._session.removeMarker(markerId);
+    }
+
+    /* ===========================================================  */
+	/* Autosave behavior                                               
+	/* ===========================================================  */
+    
+    $scope.savedSnippet = {};
+    $scope.unsavedChanges = false;
+    $scope.saveInProgress = false;
+    
+    //savetrigger
+    var intervalpointer = null;
+    
+    function watchSnippet(){
+        //attach object lisener
+        $scope.$watch("snippet", function(newValue, oldValue) {
+            if (newValue !== oldValue && $scope.snippet.dataReady) {
+                $scope.unsavedChanges = true;
+            }
+        }, true);
+    }
+    
+    $scope.$watch("options.autosave", function(newValue, oldValue) {
+        //console.log("autosave changed, is now "+newValue);
+        if(newValue){ 
+            startSaveInterval(1500);
+        } else {
+            stopSaveInterval();
+        }  
+    }, true);
+    
+    function startSaveInterval(time){
+        if(!intervalpointer){
+            console.log("starting timer");
+            intervalpointer = $interval(saveAction, time);
+        }
+    }
+    
+    function saveAction() {
+        //console.log($scope.unsavedChanges);
+        //console.log($scope.saveInProgress);
+        if($scope.unsavedChanges && !$scope.saveInProgress){
+            $scope.saveSnippet();
+        }
+    }
+    
+    function stopSaveInterval(){
+        console.log("stopping timer");
+        $interval.cancel(intervalpointer);
+        intervalpointer = null;
+    }    
+    
+    $scope.$on("saveSnippet", function (event, args) {
+        $scope.saveSnippet();
+    });
+
+    $scope.saveSnippet = function (){
+        var snippetToSave = angular.copy($scope.snippet);
+        //snippet changed since last save?
+        if(!angular.equals(snippetToSave, $scope.savedSnippet)){
+            if(!$scope.saveInProgress){
+                $scope.saveInProgress = true;
+                $scope.unsavedChanges = false;
+                snippetsService.saveSnippet(snippetToSave)
+                .then(function (response) {
+                    //update the last saved snippet, ergo the database-state
+                    $scope.savedSnippet = angular.copy(snippetToSave);
+                    $scope.saveInProgress = false;
+                });
+            } else {
+
+            }
+        } else {
+            console.log("no new data to save");
+        }
+    }
+    
+    /* ===========================================================  */
+	/* View leave actions                                        
+	/* ===========================================================  */
+    
+    window.onbeforeunload = function(){
+        console.log("onbeforeunload fired");
+        if($scope.unsavedChanges){
+            return "Es sind ungespeicherte Änderungen vorhanden, trotzdem verlassen?";
+        } else{ 
+            return;
+        }
+    }
+    
+    $scope.$on('$destroy', function() {
+        // Make sure that the interval is destroyed too
+        stopSaveInterval();
+    });
+
+    //window.addEventListener("beforeunload", function (e) {
+    //        var confirmationMessage = 'It looks like you have been editing something. If you leave before saving, your changes will be lost.';
+    //        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    //        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    //});
+
+    //$scope.$on('$stateChangeStart', function (event){
+    //    var answer = confirm("Es sind ungespeicherte Änderungen vorhanden, trotzdem verlassen?");
+    //    if (!answer){
+    //        event.preventDefault()
+    //    }else{  
+    //        return;
+    //    }
+    //});
+    
+    //$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    //    console.log(event);
+    //   //var answer = confirm("Are you sure you want to leave this page?");
+    //   //if (!answer) {
+    //       event.preventDefault();
+    //   //}
+    //    var dialog = $mdDialog.confirm()
+    //      .title('Delete Snippet?')
+    //      .textContent('All of the banks have agreed to forgive you your debts.')
+    //      .ariaLabel('Lucky day')
+    //      .targetEvent(event)
+    //      .ok('Delete!')
+    //      .cancel('Cancel');
+    //    
+    //    $mdDialog.show(dialog).then(
+    //        function() {
+    //            //dialog confirmed
+    //            //snippetsService.deleteSnippet(snippet.id)
+    //            //.then(function(){
+    //            //    console.log("reloading state");
+    //            //    $state.go($state.current, {}, {reload: true});
+    //            //});
+    //        },
+    //        function() {
+    //            //dialog canceled                
+    //        }
+    //    );
+    //});
 });
